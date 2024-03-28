@@ -2,16 +2,38 @@ package seedu.address.model.article;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
+import seedu.address.model.person.Person;
 
 /**
  * Represents an article in the address book.
  */
 public class Article {
+
+    private static Integer counter = 0;
+    private final String articleID;
     private final String title;
     private final String[] authors;
     private final LocalDateTime publicationDate;
     private final String[] sources;
     private final String category;
+
+    public String getArticleID() {
+        return articleID;
+    }
+
+    public List<Person> getPersonList() {
+        return personList;
+    }
+
+    public void setPersonList(List<Person> personList) {
+        this.personList.clear();
+        this.personList.addAll(personList);
+    }
 
     /**
      * Enumeration of Status of an article.
@@ -21,6 +43,8 @@ public class Article {
     }
 
     private final Status status;
+
+    private final List<Person> personList = new ArrayList<>();
 
     /**
      * Constructs an Article object.
@@ -34,6 +58,8 @@ public class Article {
      */
     public Article(String title, String[] authors, LocalDateTime publicationDate,
                    String[] sources, String category, Status status) {
+        this.articleID = counter.toString();
+        counter++;
         this.title = title;
         this.authors = authors;
         this.publicationDate = publicationDate;

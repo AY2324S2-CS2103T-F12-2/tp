@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -25,6 +26,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Article> filteredArticles;
+    private List<Person> personsInArticle;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -157,8 +159,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addArticle(Article person) {
-        articleBook.addArticle(person);
+    public void addArticle(Article article) {
+        articleBook.addArticle(article);
+        addressBook.supplyArticlesList(article);
         updateFilteredArticleList(PREDICATE_SHOW_ALL_ARTICLES);
     }
 
@@ -205,4 +208,9 @@ public class ModelManager implements Model {
                 && filteredArticles.equals(otherModelManager.filteredArticles);
     }
 
+    @Override
+    public void lookupArticle(String articleID) {
+        requireNonNull(articleID);
+        personsInArticle = this.articleBook.lookupArticle(articleID);
+    }
 }

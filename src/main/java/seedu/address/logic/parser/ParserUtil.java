@@ -44,6 +44,15 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    public static String parseID(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedID = id.trim();
+        if (!(Integer.parseInt(trimmedID) >= 0)) {
+            throw new ParseException("ID is not a non-zero unsigned integer.");
+        }
+        return trimmedID;
+    }
+
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Person;
 
 /**
  * A list of articles that are unique
@@ -149,5 +150,15 @@ public class UniqueArticleList implements Iterable<Article> {
             }
         }
         return true;
+    }
+
+    public List<Person> lookupArticle(String articleID) {
+        requireNonNull(articleID);
+        for (Article article : internalList) {
+            if (article.getArticleID().equals(articleID)) {
+                return article.getPersonList();
+            }
+        }
+        return null;
     }
 }

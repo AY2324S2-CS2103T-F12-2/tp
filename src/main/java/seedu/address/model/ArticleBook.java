@@ -5,9 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.article.Article;
 import seedu.address.model.article.UniqueArticleList;
+import seedu.address.model.person.Person;
 
 /**
  * Wraps all data at the article-book level
@@ -120,5 +122,10 @@ public class ArticleBook implements ReadOnlyArticleBook {
     @Override
     public int hashCode() {
         return articles.hashCode();
+    }
+
+    public List<Person> lookupArticle(String articleID) {
+        requireNonNull(articleID);
+        return articles.lookupArticle(articleID);
     }
 }

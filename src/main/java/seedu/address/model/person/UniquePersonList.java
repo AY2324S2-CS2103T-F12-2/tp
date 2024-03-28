@@ -3,11 +3,13 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.article.Article;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -146,5 +148,24 @@ public class UniquePersonList implements Iterable<Person> {
             }
         }
         return true;
+    }
+
+    public void supplyArticlesList(Article article) {
+        List<Person> persons = new ArrayList<>();
+        for (String authors : article.getAuthors()) {
+            for (Person person : internalList) {
+                if (person.getName().fullName.equals(authors)) {
+                    persons.add(person);
+                }
+            }
+        }
+        for (String sources : article.getSources()) {
+            for (Person person : internalList) {
+                if (person.getName().fullName.equals(sources)) {
+                    persons.add(person);
+                }
+            }
+        }
+        article.setPersonList(persons);
     }
 }
