@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+
+ [-> SetArticleCommandParser : parse
+ activate SetArticleCommandParser
+ SetArticleCommandParser -> SetArticleCommand : SetArticleCommand()
+ activate SetArticleCommand
+ SetArticleCommand --> SetArticleCommandParser
+ deactivate SetArticleCommand
+ [<-- SetArticleCommandParser
+ deactivate SetArticleCommandParser
+ [-> SetArticleCommand : executes
+ activate SetArticleCommand
+ SetArticleCommand -> Model : getFilter
+ activate Model
+ Model --> SetArticleCommand
+ deactivate Model
+ SetArticleCommand -> ArticleFilter: updateFilter
+ activate ArticleFilter
+ ArticleFilter --> SetArticleCommand
+ deactivate ArticleFilter
+ SetArticleCommand -> Model:updateFilteredArticleList
+ activate Model
+ deactivate Model
+ [<-- SetArticleCommand
+ deactivate
+@enduml

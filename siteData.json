@@ -51,6 +51,7 @@
         "storage-component": "Storage component",
         "common-classes": "Common classes",
         "implementation": "Implementation",
+        "implementing-filter-feature": "[Implementing] Filter feature",
         "proposed-undo-redo-feature": "[Proposed] Undo/redo feature",
         "proposed-lookup-article": "[Proposed] Lookup Article",
         "proposed-data-archiving": "[Proposed] Data archiving",

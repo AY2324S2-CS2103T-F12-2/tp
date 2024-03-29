@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Class Model
+
+Class ArticleFilter
+
+Model --> ArticleFilter : > uses
+Model --> PersonFilter : > uses
+ArticleFilter : Predicate<Article> finalPredicate
+ArticleFilter : getFinalPredicate()
+ArticleFilter : updateFilter()
+PersonFilter : Predicate<Person> finalPredicate
+PersonFilter : getFinalPredicate()
+PersonFilter : updateFilter()
+@enduml
