@@ -19,5 +19,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_OUTLET = new Prefix("O/");
     public static final Prefix PREFIX_PUBLICATION_DATE = new Prefix("D/");
     public static final Prefix PREFIX_STATUS = new Prefix("S/");
+    public static final Prefix PREFIX_START = new Prefix("ST/");
+    public static final Prefix PREFIX_END = new Prefix("EN/");
 
 }

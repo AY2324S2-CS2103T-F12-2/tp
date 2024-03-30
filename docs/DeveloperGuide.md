@@ -1,3 +1,5 @@
+
+
 ---
   layout: default.md
   title: "Developer Guide"
@@ -112,7 +114,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <puml src="diagrams/ParserClasses.puml" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object. If the command deals with Articles then the `AddressBookParser` will pass it to the `ArticleBookParser` which will then handle to command similarly to the `AddressBookParser`.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -144,8 +146,8 @@ The `Model` component,
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save address book data, article book data and user preference data in JSON format, and read them back into corresponding objects.
+* inherits from `AddressBookStorage`, `ArticleBookStorage` and `UserPrefStorage`, which means it can be treated as any one of these (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -157,6 +159,68 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+
+### \[Implemented\] Sort persons feature
+
+#### Implementation
+
+The sort persons command is implemented in the `SortCommand` class. The `SortCommand` class is a subclass of the `PersonCommand` class, which is in turn a subclass of the `Command` class. The `SortCommand` class is responsible for sorting the persons in the address book according to a field present in the `Person` class by overriding the following method in the `Command` class:
+
+* `execute(Model model)` — Sorts the persons in the address book according to a field present in the `Person` class which is mapped to the `prefix` field in the `SortCommand` object.
+
+Given below is an example usage scenario and how the sort persons feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the initial address book state.
+
+Step 2. The user executes `sort n/` command. The `sort` command calls `Model#sortAddressBook("n/")` which sorts the persons in the address book by name in increasing lexicographical order.
+
+The following sequence diagram shows how a sort persons operation goes through the `Logic` component:
+
+<puml src="diagrams/SortPersonsSequenceDiagram-Logic.puml" alt="SortPersonsSequenceDiagram-Logic" />
+
+Similarly, how a sort persons operation goes through the `Model` component is shown below:
+
+<puml src="diagrams/SortPersonsSequenceDiagram-Model.puml" alt="SortPersonsSequenceDiagram-Model" />
+
+#### Design considerations:
+
+**Aspect: How sort persons executes:**
+
+* **Alternative 1 (current choice):** Directly sort the `internalList` field present in the `UniquePersonList` object.
+    * Pros: Easy to implement.
+    * Cons: Permanently orders all persons in the `AddressBook` by the `Person` field specified by the related `prefix`.
+
+
+* **Alternative 2:** Clone the current `internalList` field
+  present in the `UniquePersonList` object, sort the clone, then replace the `internalUnmodifiableList` field in the `UniquePersonList` object with the sorted clone.
+    * Pros: Will not permanently order all persons in the `AddressBook` by the `Person` field specified by the related `prefix`, but only the current view displayed to the user which is refreshed for every opening of the application or commands that changes the view (e.g. `List`, `Find` commands).
+    * Cons: Takes up much more memory space directly proportional to the size of the `AddressBook` since a clone of all `Persons` has to be made.
+
+### \[Implementing\] Filter feature
+
+<puml src="diagrams/ModelFilterClassDiagram.puml" width="250" />
+
+The filter mechanism is facilitated by `filter` interface. The ArticleFilter and PersonFilter classes will inherit from it.
+The filters will store `Predicate<>` objects that will determine which Persons or articles will be shown to the user.
+`ModelManager` will contain a filter, which it will use to generate `FilteredLists`
+
+Given below is an example usage scenario:
+
+Step 1. The user launches the application. The `ModelManager` will be initialized, along with the Filter objects it contains. `finalPredicate` will be set to display all articles for now.  
+
+Step 2. The user executes `set -a S/DRAFT ST/ EN/` to look for articles he is currently working on.  The set command gets the `ArticleFilter` object using `getFilter()`. Than it updates the filter object by calling the `updateFilter()` method, changing the `finalPredicate`.
+
+<puml src="diagrams/FilterSequenceDiagram.puml" width="250" />
+
+Step 3. Now that the filter has been updated. The user now looks through Press Planner to search for the article. He decides to search by title to make it faster. He executes `find -a AI`. Beyond matches with the name, Press Planner is still filtering to show only DRAFTs, allowing the user to search a smaller set.  
+
+Step 4. The user has found his article and wishes to remove the filter. He does this by executing `set -a S/ ST/ EN/`. With no instructions, the predicate allows all articles to pass through the filter.  
+
+Note: If start date is later than the end date, Press Planner will refuse to execute the command, double check the dates to avoid this scenario.  
+
+Note: Filters are **NOT** stored by the program. If you close the app, your filters will be reset. 
+
 
 ### \[Proposed\] Undo/redo feature
 
@@ -251,9 +315,76 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### \[Proposed\] Lookup Article
+
+#### Proposed Implementation
+
+The proposed lookup feature is enabled by altering `Article` such that whenever one is created, it stores a list of `Person` objects that are the Authors or Sources involved in the article. The `LookUpCommand` feature will then retrieve this list and display it to the user, enabling the user to see Persons involved in the article.
+
+#### Design considerations:
+
+* Make sure Edits and Deletes of Persons and Articles are handled correctly.
+* Consider including a UI alternative to access the list: Pressing a button in the Article's display will show the list of Persons involved.
+
+### \[Proposed\] Templating of Articles
+
+The proposed templating feature is enabled by creating a `Template` superclass that `Article` inherits from.
+
+The `Template` class will have the following attributes:
+- `Name` - The name of the template.
+- `Authors` - A list of `Person` objects that are the authors of the article.
+- `Sources` - A list of `Person` objects that are the sources of the article.
+- `Tags` - A list of tags that are associated with the article.
+
+The `Template` class will also have getter methods for accessing each of the attributes.
+
+The `Article` class will be augmented to have the `applyTemplate` method, which will take a `Template` object as an argument and apply the template to the article. This will involve setting the `Authors`, `Sources`, `Tags`, and `Status` attributes of the article to the corresponding attributes of the template if the values are not `null`.
+
+The `Model` component will be augmented with a `UniqueTemplateList` to store the templates. The `Model` will also have methods to add, delete, and list templates.
+
+#### Proposed Implementation
+
+Step 1. The user creates a new `Template` object by entering the correct CLI input and providing the index of an article and the attributes to be used in the template.
+
+Step 2. `MakeTemplateCommandParser` parses the attribute prefixes and corresponding values from the user input.
+
+Step 3. `MakeTemplateCommand` is created with the parsed attributes.
+
+Step 4. The newly made `Template` object is added to the `UniqueTemplateList` in the `Model` component and throws an error if there is a duplicate.
+
+Step 5. The user can apply the template to an article by entering the correct CLI input and providing the index of the article and the index of the template.
+
+Step 6. `ApplyTemplateCommandParser` parses the indexes from the user input.
+
+Step 7. `ApplyTemplateCommand` is created with the parsed indexes.
+
+Step 8. The `ApplyTemplateCommand` is executed, and the template is applied to the article.
+
+The following sequence diagram shows how the `MakeTemplateCommand` is executed:
+
+<puml src="diagrams/ProposedTemplateSequenceDiagram.puml" alt="Proposed Sequence Diagram for MakeTemplateCommand" />
+
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
+
+
+### \[Proposed\] Link Webpage to Articles
+
+#### Proposed Implementation
+
+The proposed link feature is enabled by filling up `link` attribute of `Article` class when adding an article. This feature creates a link button on the UI of each `Article` that opens up a web browser and directs the user to the webpage of where the actual article is uploaded.
+Since the `Articlebook` does not store the whole content of the articles, users will be able to read the articles using this feature.
+
+#### Design Considerables
+
+* Make sure the link button on UI correctly directs the user the exact webpage of the `Article`.
+* Make sure the `link` saved on `Article` objects are saved without parsing errors.
+
+The class diagram below shows how the `Article` will look and interact after implementation of the link feature.
+
+<puml src="diagrams/LinkClassDiagram.puml" alt="LinkClassDiagram"/>
 
 
 --------------------------------------------------------------------------------------------------------------------

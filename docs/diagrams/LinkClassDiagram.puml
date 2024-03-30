@@ -1,0 +1,52 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model as ModelPackage <<Rectangle>>{
+Class "<<interface>>\nReadOnlyArticleBook" as ReadOnlyArticleBook
+Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
+Class "<<interface>>\nModel" as Model
+Class ArticleBook
+Class ModelManager
+Class UserPrefs
+
+Class UniqueArticleList
+Class Article
+Class Title
+Class Authors
+Class Outlets
+Class Sources
+Class Tag
+Class PublicationDate
+Class Link
+
+Class I #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+ArticleBook .up.|> ReadOnlyArticleBook
+
+ModelManager .up.|> Model
+Model .right.> ReadOnlyUserPrefs
+Model .left.> ReadOnlyArticleBook
+ModelManager -left-> "1" ArticleBook
+ModelManager -right-> "1" UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+ArticleBook *--> "1" UniqueArticleList
+UniqueArticleList --> "~* all" Article
+Article *--> Title
+Article *--> "*" Authors
+Article *--> "*" Outlets
+Article *--> "*" Sources
+Article *--> "*" Tag
+Article *--> PublicationDate
+Article *--> Link
+
+
+ModelManager --> "~* filtered" Article
+@enduml

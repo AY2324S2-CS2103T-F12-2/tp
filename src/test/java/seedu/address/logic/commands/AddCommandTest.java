@@ -19,6 +19,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ArticleFilter;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArticleBook;
@@ -207,6 +208,10 @@ public class AddCommandTest {
 
         @Override
         public void sortArticleBook(String prefix) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public ArticleFilter getFilter() {
             throw new AssertionError("This method should not be called.");
         }
     }

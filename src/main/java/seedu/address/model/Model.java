@@ -144,4 +144,7 @@ public interface Model {
     void updateFilteredArticleList(Predicate<Article> predicate);
 
     void lookupArticle(String articleID);
+
+    ArticleFilter getFilter();
+
 }

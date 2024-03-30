@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":AddressBook" as AddressBook MODEL_COLOR
+participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+end box
+
+[-> Model : sortAddressBook("n/")
+activate Model
+
+Model -> ModelManager : sortAddressBook("n/")
+activate ModelManager
+
+ModelManager -> AddressBook : sortAddressBook("n/")
+activate AddressBook
+
+AddressBook -> UniquePersonList : sortPersons("n/")
+activate UniquePersonList
+
+UniquePersonList --> AddressBook
+deactivate UniquePersonList
+
+AddressBook --> ModelManager
+deactivate AddressBook
+
+ModelManager --> Model :
+deactivate ModelManager
+
+[<-- Model :
+deactivate Model
+
+@enduml

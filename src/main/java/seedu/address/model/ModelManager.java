@@ -28,6 +28,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Article> filteredArticles;
     private List<Person> personsInArticle;
+    private final ArticleFilter filter;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,6 +43,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredArticles = new FilteredList<>(this.articleBook.getArticleList());
+        filter = new ArticleFilter();
     }
 
     public ModelManager() {
@@ -82,7 +84,6 @@ public class ModelManager implements Model {
         requireNonNull(addressBookFilePath);
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
-
     //=========== AddressBook ================================================================================
 
     @Override
@@ -196,6 +197,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredArticleList(Predicate<Article> predicate) {
         requireNonNull(predicate);
+        predicate = predicate.and(filter.getFinalPredicate());
         filteredArticles.setPredicate(predicate);
     }
 
@@ -223,5 +225,9 @@ public class ModelManager implements Model {
         requireNonNull(articleID);
         personsInArticle = this.articleBook.lookupArticle(articleID, addressBook);
         updateFilteredPersonList(new ArticleContainsPerson(personsInArticle));
+    }
+
+    public ArticleFilter getFilter() {
+        return filter;
     }
 }

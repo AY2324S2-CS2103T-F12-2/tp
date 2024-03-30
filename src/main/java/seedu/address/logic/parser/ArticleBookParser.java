@@ -13,6 +13,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.articlecommands.AddArticleCommand;
 import seedu.address.logic.commands.articlecommands.DeleteArticleCommand;
 import seedu.address.logic.commands.articlecommands.EditArticleCommand;
+import seedu.address.logic.commands.articlecommands.FilterArticleCommand;
 import seedu.address.logic.commands.articlecommands.FindArticleCommand;
 import seedu.address.logic.commands.articlecommands.ListArticleCommand;
 import seedu.address.logic.commands.articlecommands.LookupArticleCommand;
@@ -37,6 +38,7 @@ public class ArticleBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
+    @SuppressWarnings("checkstyle:Regexp")
     public static Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -70,6 +72,9 @@ public class ArticleBookParser {
 
         case SortArticleCommand.COMMAND_WORD:
             return new SortArticleCommandParser().parse(arguments);
+
+        case FilterArticleCommand.COMMAND_WORD:
+            return new FilterArticleCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
