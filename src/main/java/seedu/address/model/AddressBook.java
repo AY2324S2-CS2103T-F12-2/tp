@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.article.Article;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -95,6 +94,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Sorts the persons in the address book by the attribute derived from a given prefix.
+     */
+    public void sortAddressBook(String prefix) {
+        persons.sortPersons(prefix);
+    }
+
     //// util methods
 
     @Override
@@ -129,7 +135,4 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.hashCode();
     }
 
-    public void supplyArticlesList(Article article) {
-        persons.supplyArticlesList(article);
-    }
 }

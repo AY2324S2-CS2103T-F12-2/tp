@@ -11,6 +11,7 @@ public class LookupArticleCommandParser {
     public LookupArticleCommand parse(String args) throws ParseException {
         try {
             String id = ParserUtil.parseID(args);
+            assert id.equals("1") : "1_" + id + "_";
             return new LookupArticleCommand(id);
         } catch (ParseException pe) {
             throw new ParseException(

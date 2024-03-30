@@ -11,13 +11,15 @@ import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.article.Article;
+import seedu.address.model.article.Author;
+import seedu.address.model.article.Outlet;
+import seedu.address.model.article.Source;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -47,7 +49,8 @@ public class ParserUtil {
     public static String parseID(String id) throws ParseException {
         requireNonNull(id);
         String trimmedID = id.trim();
-        if (!(Integer.parseInt(trimmedID) >= 0)) {
+        assert trimmedID.equals("1") : "1_" + trimmedID + "_";
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedID)) {
             throw new ParseException("ID is not a non-zero unsigned integer.");
         }
         return trimmedID;
@@ -153,21 +156,23 @@ public class ParserUtil {
     /**
      * Parses a {@code String author} into a {@code Author}.
      */
-    public static String parseAuthor(String author) throws ParseException {
+    public static Author parseAuthor(String author) throws ParseException {
         requireNonNull(author);
         String trimmedAuthor = author.trim();
-        //removed the check for author validity
-        return trimmedAuthor;
+        if (!Author.isValidAuthorName(trimmedAuthor)) {
+            throw new ParseException(Author.MESSAGE_CONSTRAINTS);
+        }
+        return new Author(trimmedAuthor);
     }
 
     /**
-     * Parses a {@code List<String> authors} into a {@code String[]}.
+     * Parses a {@code List<String> authors} into a {@code Set<Author>}.
      */
-    public static String[] parseAuthors(List<String> authors) throws ParseException {
+    public static Set<Author> parseAuthors(Collection<String> authors) throws ParseException {
         requireNonNull(authors);
-        final String[] authorSet = new String[authors.size()];
-        for (int i = 0; i < authors.size(); i++) {
-            authorSet[i] = parseAuthor(authors.get(i));
+        final Set<Author> authorSet = new HashSet<>();
+        for (String authorName : authors) {
+            authorSet.add(parseAuthor(authorName));
         }
         return authorSet;
     }
@@ -194,33 +199,49 @@ public class ParserUtil {
     /**
      * Parses a {@code String source} into a {@code Source}.
      */
-    public static String parseSource(String source) throws ParseException {
+    public static Source parseSource(String source) throws ParseException {
         requireNonNull(source);
         String trimmedSource = source.trim();
-        //removed the check for Source validity
-        return trimmedSource;
+        if (!Source.isValidSourceName(trimmedSource)) {
+            throw new ParseException(Source.MESSAGE_CONSTRAINTS);
+        }
+        return new Source(trimmedSource);
     }
 
     /**
-     * Parses a {@code List<String> sources} into a {@code String[]}.
+     * Parses a {@code List<String> sources} into a {@code Set<Source>}.
      */
-    public static String[] parseSources(List<String> sources) throws ParseException {
+    public static Set<Source> parseSources(Collection<String> sources) throws ParseException {
         requireNonNull(sources);
-        final String[] sourceSet = new String[sources.size()];
-        for (int i = 0; i < sources.size(); i++) {
-            sourceSet[i] = parseSource(sources.get(i));
+        final Set<Source> sourceSet = new HashSet<>();
+        for (String sourceName : sources) {
+            sourceSet.add(parseSource(sourceName));
         }
         return sourceSet;
     }
 
     /**
-     * Parses a {@code String category} into a {@code Category}.
+     * Parses a {@code String outlet} into a {@code Outlet}.
      */
-    public static String parseCategory(String category) throws ParseException {
-        requireNonNull(category);
-        String trimmedCategory = category.trim();
-        //removed the check for category validity
-        return trimmedCategory;
+    public static Outlet parseOutlet(String outlet) throws ParseException {
+        requireNonNull(outlet);
+        String trimmedOutlet = outlet.trim();
+        if (!Outlet.isValidOutletName(trimmedOutlet)) {
+            throw new ParseException(Outlet.MESSAGE_CONSTRAINTS);
+        }
+        return new Outlet(trimmedOutlet);
+    }
+
+    /**
+     * Parses a {@code List<String> outlets} into a {@code Set<Outlet>}.
+     */
+    public static Set<Outlet> parseOutlets(Collection<String> outlets) throws ParseException {
+        requireNonNull(outlets);
+        final Set<Outlet> outletSet = new HashSet<>();
+        for (String outletName : outlets) {
+            outletSet.add(parseOutlet(outletName));
+        }
+        return outletSet;
     }
 
     /**

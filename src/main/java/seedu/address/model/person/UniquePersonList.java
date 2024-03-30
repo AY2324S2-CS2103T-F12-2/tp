@@ -2,14 +2,14 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.article.Article;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -100,6 +100,18 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Sorts the list of persons by the attribute represented by the given prefix.
+     */
+    public void sortPersons(String prefix) {
+        requireNonNull(prefix);
+        if (PREFIX_NAME.getPrefix().equals(prefix)) {
+            internalList.sort(Comparator.comparing(Person::getName));
+        } else {
+            throw new IllegalArgumentException("Invalid prefix supplied.");
+        }
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Person> asUnmodifiableObservableList() {
@@ -148,24 +160,5 @@ public class UniquePersonList implements Iterable<Person> {
             }
         }
         return true;
-    }
-
-    public void supplyArticlesList(Article article) {
-        List<Person> persons = new ArrayList<>();
-        for (String authors : article.getAuthors()) {
-            for (Person person : internalList) {
-                if (person.getName().fullName.equals(authors)) {
-                    persons.add(person);
-                }
-            }
-        }
-        for (String sources : article.getSources()) {
-            for (Person person : internalList) {
-                if (person.getName().fullName.equals(sources)) {
-                    persons.add(person);
-                }
-            }
-        }
-        article.setPersonList(persons);
     }
 }

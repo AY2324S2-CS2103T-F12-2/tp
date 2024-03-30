@@ -2,12 +2,16 @@ package seedu.address.model.article;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PUBLICATION_DATE;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 
 /**
@@ -102,6 +106,19 @@ public class UniqueArticleList implements Iterable<Article> {
     }
 
     /**
+     * Sorts the list of articles by the attribute represented by the given prefix.
+     */
+    public void sortArticles(String prefix) {
+        requireNonNull(prefix);
+        if (PREFIX_PUBLICATION_DATE.getPrefix().equals(prefix)) {
+            // Sort by publication date and display most recent articles first.
+            internalList.sort(Comparator.comparing(Article::getPublicationDate, Comparator.reverseOrder()));
+        } else {
+            throw new IllegalArgumentException("Invalid prefix supplied.");
+        }
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Article> asUnmodifiableObservableList() {
@@ -152,11 +169,34 @@ public class UniqueArticleList implements Iterable<Article> {
         return true;
     }
 
-    public List<Person> lookupArticle(String articleID) {
+    public List<Person> lookupArticle(String articleID, AddressBook addressBook) {
+        requireAllNonNull(articleID, addressBook);
+        Article article = this.lookupArticle(articleID);
+        List<Person> persons = new ArrayList<>();
+
+        for (Author authors : article.getAuthors()) {
+            for (Person person : addressBook.getPersonList()) {
+                if (person.getName().fullName.equals(authors.authorName)) {
+                    persons.add(person);
+                }
+            }
+        }
+        for (Source sources : article.getSources()) {
+            for (Person person : addressBook.getPersonList()) {
+                if (person.getName().fullName.equals(sources.sourceName)) {
+                    persons.add(person);
+                }
+            }
+        }
+        article.setPersonList(persons);
+        return article.getPersonList();
+    }
+
+    public Article lookupArticle(String articleID) {
         requireNonNull(articleID);
         for (Article article : internalList) {
             if (article.getArticleID().equals(articleID)) {
-                return article.getPersonList();
+                return article;
             }
         }
         return null;

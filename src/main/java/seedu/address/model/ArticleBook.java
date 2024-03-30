@@ -90,6 +90,13 @@ public class ArticleBook implements ReadOnlyArticleBook {
         articles.remove(key);
     }
 
+    /**
+     * Sorts the article book by the attribute represented by the given prefix.
+     */
+    public void sortArticleBook(String prefix) {
+        articles.sortArticles(prefix);
+    }
+
     //// util methods
 
     @Override
@@ -124,8 +131,9 @@ public class ArticleBook implements ReadOnlyArticleBook {
         return articles.hashCode();
     }
 
-    public List<Person> lookupArticle(String articleID) {
+    public List<Person> lookupArticle(String articleID, AddressBook addressBook) {
         requireNonNull(articleID);
-        return articles.lookupArticle(articleID);
+        assert articles.lookupArticle(articleID, addressBook) != null;
+        return articles.lookupArticle(articleID, addressBook);
     }
 }
