@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.article.Article;
 import seedu.address.model.article.UniqueArticleList;
 import seedu.address.model.person.Person;
@@ -131,7 +131,11 @@ public class ArticleBook implements ReadOnlyArticleBook {
         return articles.hashCode();
     }
 
-    public List<Person> lookupArticle(String articleID, AddressBook addressBook) {
+    /**
+     * Looks up the article with the given articleID in the article book.
+     * Returns a list of persons who are related to the article.
+     */
+    public List<Person> lookupArticle(String articleID, AddressBook addressBook) throws CommandException {
         requireNonNull(articleID);
         assert articles.lookupArticle(articleID, addressBook) != null;
         return articles.lookupArticle(articleID, addressBook);

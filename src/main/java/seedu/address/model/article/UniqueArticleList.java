@@ -11,6 +11,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 
@@ -169,7 +171,11 @@ public class UniqueArticleList implements Iterable<Article> {
         return true;
     }
 
-    public List<Person> lookupArticle(String articleID, AddressBook addressBook) {
+    /**
+     * Looks up the article with the given articleID in the article book.
+     * Returns a list of persons who are related to the article.
+     */
+    public List<Person> lookupArticle(String articleID, AddressBook addressBook) throws CommandException {
         requireAllNonNull(articleID, addressBook);
         Article article = this.lookupArticle(articleID);
         List<Person> persons = new ArrayList<>();
@@ -192,13 +198,17 @@ public class UniqueArticleList implements Iterable<Article> {
         return article.getPersonList();
     }
 
-    public Article lookupArticle(String articleID) {
+    /**
+     * Looks up the article with the given articleID in the article book.
+     * Returns the article if it exists, otherwise returns null.
+     */
+    public Article lookupArticle(String articleID) throws CommandException {
         requireNonNull(articleID);
         for (Article article : internalList) {
             if (article.getArticleID().equals(articleID)) {
                 return article;
             }
         }
-        return null;
+        throw new CommandException("Article not found.");
     }
 }

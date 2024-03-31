@@ -46,10 +46,15 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    /**
+     * Parses a {@code String id} into a {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code id} is invalid (not non-zero unsigned integer).
+     */
     public static String parseID(String id) throws ParseException {
         requireNonNull(id);
         String trimmedID = id.trim();
-        assert trimmedID.equals("1") : "1_" + trimmedID + "_";
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedID)) {
             throw new ParseException("ID is not a non-zero unsigned integer.");
         }

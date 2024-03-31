@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.article.Article;
 import seedu.address.model.person.Person;
 
@@ -143,7 +145,10 @@ public interface Model {
      */
     void updateFilteredArticleList(Predicate<Article> predicate);
 
-    void lookupArticle(String articleID);
+    /**
+     * Updates the filter of the filtered article list to return a list of Persons found in the given Article.
+     */
+    void lookupArticle(String articleID) throws CommandException;
 
     ArticleFilter getFilter();
 

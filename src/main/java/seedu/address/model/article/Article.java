@@ -19,7 +19,6 @@ import seedu.address.model.tag.Tag;
  * Represents an article in the address book.
  */
 public class Article {
-
     private static Integer counter = 1;
     private final String articleID;
     private final String title;
@@ -28,22 +27,6 @@ public class Article {
     private final Set<Source> sources = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
     private final LocalDateTime publicationDate;
-
-    public String getArticleID() {
-        return articleID;
-    }
-
-    public List<Person> getPersonList() {
-        return personList;
-    }
-
-    public void setPersonList(List<Person> personList) {
-        if (this.personList == null) {
-            this.personList = new ArrayList<>();
-        }
-        this.personList.clear();
-        this.personList.addAll(personList);
-    }
 
     /**
      * Enumeration of Status of an article.
@@ -82,6 +65,10 @@ public class Article {
         this.status = status;
     }
 
+    public String getArticleID() {
+        return articleID;
+    }
+
     public String getTitle() {
         return this.title;
     }
@@ -113,6 +100,18 @@ public class Article {
 
     public Status getStatus() {
         return this.status;
+    }
+
+    public List<Person> getPersonList() {
+        return personList;
+    }
+
+    public void setPersonList(List<Person> personList) {
+        if (this.personList == null) {
+            this.personList = new ArrayList<>();
+        }
+        this.personList.clear();
+        this.personList.addAll(personList);
     }
 
     /**

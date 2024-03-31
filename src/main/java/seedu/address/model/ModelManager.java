@@ -12,6 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.article.Article;
 import seedu.address.model.person.ArticleContainsPerson;
 import seedu.address.model.person.Person;
@@ -221,7 +223,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void lookupArticle(String articleID) {
+    public void lookupArticle(String articleID) throws CommandException {
         requireNonNull(articleID);
         personsInArticle = this.articleBook.lookupArticle(articleID, addressBook);
         updateFilteredPersonList(new ArticleContainsPerson(personsInArticle));
