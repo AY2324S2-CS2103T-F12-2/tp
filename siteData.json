@@ -137,9 +137,10 @@
         "3-2-3-listing-all-articles": "3.2.3. Listing all Articles",
         "3-2-4-editing-an-article": "3.2.4. Editing an Article",
         "3-2-5-searching-for-an-article": "3.2.5. Searching for an Article",
-        "3-2-6-filtering-articles": "3.2.6 Filtering Articles",
-        "3-2-7-removing-filters": "3.2.7 Removing filters",
-        "3-2-6-lookup-for-associated-persons-lookup": "3.2.6. Lookup for associated persons : lookup",
+        "3-2-6-filtering-articles": "3.2.6. Filtering Articles",
+        "3-2-7-removing-filters": "3.2.7. Removing filters",
+        "3-2-8-lookup-for-associated-persons-lookup": "3.2.8. Lookup for associated persons : lookup",
+        "3-2-9-opening-webpage-for-an-article": "3.2.9. Opening webpage for an article",
         "3-3-other-commands": "3.3. Other Commands",
         "3-3-1-viewing-help-help": "3.3.1. Viewing help : help",
         "3-3-2-exiting-the-program-exit": "3.3.2. Exiting the program : exit",
@@ -147,7 +148,8 @@
         "5-faqs": "5. FAQs",
         "5-1-why-am-i-unable-to-run-pressplanner-on-my-desktop": "5.1. Why am I unable to run PressPlanner on my desktop?",
         "5-2-how-do-i-ensure-that-i-have-saved-all-the-contacts-and-articles-i-have-added-in-this-session": "5.2. How do I ensure that I have saved all the contacts and articles I have added in this session?",
-        "5-3-why-were-all-my-previous-data-for-contacts-and-or-articles-from-previous-sessions-deleted-and-replaced-by-the-default-template-data": "5.3. Why were all my previous data for contacts (and / or) articles from previous sessions deleted and replaced by the default template data?"
+        "5-3-why-were-all-my-previous-data-for-contacts-and-or-articles-from-previous-sessions-deleted-and-replaced-by-the-default-template-data": "5.3. Why were all my previous data for contacts (and / or) articles from previous sessions deleted and replaced by the default template data?",
+        "5-4-why-does-my-link-not-open-the-browser": "5.4. Why does my link not open the browser?"
       },
       "headingKeywords": {}
     },
