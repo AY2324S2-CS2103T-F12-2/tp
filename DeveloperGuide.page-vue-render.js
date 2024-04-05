@@ -494,6 +494,6 @@ with(this){return _c('h2',{attrs:{"id":"planned-enhancements"}},[_c('strong',[_v
 with(this){return _c('ol',[_c('li',[_c('strong',[_v("Make URL failure more explicit")]),_v(": Currently when a URL cannot be opened the app shows that by not opening anything. This can be improved by showing an error message.")]),_v(" "),_c('li',[_c('strong',[_v("The filter command can work for individual prefixes")]),_v(": Currently the filter command only works for all prefixes. It can be improved by allowing the user to filter by individual prefixes.")])])}
 },function anonymous(
 ) {
-with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 5.4.0")]),_v(", generated on Fri, 5 Apr 2024, 2:01:24 GMT+8]")])])])}
+with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 5.4.0")]),_v(", generated on Fri, 5 Apr 2024, 8:50:52 GMT+8]")])])])}
 }];
   
