@@ -144,6 +144,7 @@
         "3-2-8-lookup-associated-persons-lookup-a": "3.2.8. Lookup Associated Persons : lookup -a",
         "3-2-9-sorting-articles-by-date-sort-a-d": "3.2.9. Sorting Articles by Date : sort -a d/",
         "3-2-10-opening-a-webpage-for-an-article": "3.2.10. Opening a Webpage for an Article",
+        "3-2-11-clearing-all-articles": "3.2.11 Clearing all Articles",
         "3-3-other-commands": "3.3. Other Commands",
         "3-3-1-viewing-help-help": "3.3.1. Viewing Help : help",
         "3-3-2-exiting-pressplanner-exit": "3.3.2. Exiting PressPlanner : exit",
