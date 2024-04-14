@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":ArticleBook" as ArticleBook MODEL_COLOR
+participant ":UniqueArticleList" as UniqueArticleList MODEL_COLOR
+end box
+
+[-> Model : sortArticleBook("d/")
+activate Model
+
+Model -> ModelManager : sortArticleBook("d/")
+activate ModelManager
+
+ModelManager -> ArticleBook : sortArticleBook("d/")
+activate ArticleBook
+
+ArticleBook -> UniqueArticleList : sortArticles("d/")
+activate UniqueArticleList
+
+UniqueArticleList --> ArticleBook
+deactivate UniqueArticleList
+
+ArticleBook --> ModelManager
+deactivate ArticleBook
+
+ModelManager --> Model :
+deactivate ModelManager
+
+[<-- Model :
+deactivate Model
+
+@enduml

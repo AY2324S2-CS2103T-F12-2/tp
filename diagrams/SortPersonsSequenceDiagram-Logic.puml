@@ -19,13 +19,13 @@ LogicManager -> AddressBookParser : parseCommand("sort n/")
 activate AddressBookParser
 
 create SortCommandParser
-AddressBookParser -> SortCommandParser : SortCommandParser("sort n/")
+AddressBookParser -> SortCommandParser : SortCommandParser()
 activate SortCommandParser
 
 SortCommandParser --> AddressBookParser
 deactivate SortCommandParser
 
-AddressBookParser -> SortCommandParser : parse("sort n/")
+AddressBookParser -> SortCommandParser : parse("n/")
 activate SortCommandParser
 
 create SortCommand
