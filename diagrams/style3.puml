@@ -41,7 +41,7 @@ skinparam Package {
 
 skinparam Class {
     FontColor #FFFFFF
-    FontSize 35
+    FontSize 15
     BorderThickness 1
     BorderColor #FFFFFF
     StereotypeFontColor #FFFFFF
@@ -65,7 +65,7 @@ skinparam Sequence {
 skinparam Participant {
     FontColor #FFFFFFF
     Padding 20
-    FontSize 25
+    FontSize 30
 }
 
 skinparam ArrowFontStyle bold
