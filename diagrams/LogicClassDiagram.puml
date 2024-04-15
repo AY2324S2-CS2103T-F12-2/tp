@@ -37,15 +37,17 @@ ParserClasses ..> ABCCommand : <<create>>
 XYZCommand -up-|> Command
 ABCCommand -up-|> ArticleCommand
 LogicManager .left.> Command : <<call>>
-LogicManager .left.> ArticleCommand : <<call>>
+LogicManager .right.> ArticleCommand : <<call>>
 
 LogicManager --> Model
 LogicManager --> Storage
 Storage --[hidden] Model
 Command .[hidden]up.> Storage
+ArticleCommand .[hidden]left.> Storage
 Command .right.> Model
+ArticleCommand .right.> Model
 note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
-note right of ABCCommand: ABCCommand = AddArticleCommand, \nFindArticleCommand, etc
+note left of ABCCommand: ABCCommand = AddArticleCommand, \nFindArticleCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult

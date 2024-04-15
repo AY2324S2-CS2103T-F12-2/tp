@@ -15,7 +15,7 @@ end box
  [-> FilterArticleCommandParser : parse
  activate FilterArticleCommandParser
 
- FilterArticleCommandParser -> FilterArticleCommand : FilterArticleCommand()
+ FilterArticleCommandParser -> FilterArticleCommand : FilterArticleCommand
  activate FilterArticleCommand
 
  FilterArticleCommand --> FilterArticleCommandParser
