@@ -1,16 +1,21 @@
 @startuml
-'https://plantuml.com/class-diagram
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model as ModelPackage <<Rectangle>>{
+Class "<<interface>>\nModel" as Model
+CLass "<<interface>>\nFilter" as Filter
+Class ModelManager
 
 Class Model
 
 Class ArticleFilter
 
-Model --> ArticleFilter : > uses
-Model --> PersonFilter : > uses
-ArticleFilter : Predicate<Article> finalPredicate
-ArticleFilter : getFinalPredicate()
-ArticleFilter : updateFilter()
-PersonFilter : Predicate<Person> finalPredicate
-PersonFilter : getFinalPredicate()
-PersonFilter : updateFilter()
+ModelManager .up.|> Model
+ArticleFilter .up.|> Filter
+PersonFilter .up.|> Filter
+ModelManager --> ArticleFilter : > uses
+ModelManager --> PersonFilter : > uses
 @enduml

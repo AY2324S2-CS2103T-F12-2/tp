@@ -1,29 +1,41 @@
 @startuml
-'https://plantuml.com/sequence-diagram
+!include style.puml
+skinparam ArrowFontStyle plain
 
+box Logic LOGIC_COLOR_T1
+participant ":FilterArticleCommandParser" as FilterArticleCommandParser LOGIC_COLOR
+participant ":FilterArticleCommand" as FilterArticleCommand LOGIC_COLOR
+end box
 
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ArticleFilter" as ArticleFilter MODEL_COLOR
+end box
 
- [-> SetArticleCommandParser : parse
- activate SetArticleCommandParser
- SetArticleCommandParser -> SetArticleCommand : SetArticleCommand()
- activate SetArticleCommand
- SetArticleCommand --> SetArticleCommandParser
- deactivate SetArticleCommand
- [<-- SetArticleCommandParser
- deactivate SetArticleCommandParser
- [-> SetArticleCommand : executes
- activate SetArticleCommand
- SetArticleCommand -> Model : getFilter
+ [-> FilterArticleCommandParser : parse
+ activate FilterArticleCommandParser
+
+ FilterArticleCommandParser -> FilterArticleCommand : FilterArticleCommand()
+ activate FilterArticleCommand
+
+ FilterArticleCommand --> FilterArticleCommandParser
+ deactivate FilterArticleCommand
+
+ [<-- FilterArticleCommandParser
+ deactivate FilterArticleCommandParser
+
+ [-> FilterArticleCommand : executes
+ activate FilterArticleCommand
+
+ FilterArticleCommand -> Model : getFilter
  activate Model
- Model --> SetArticleCommand
- deactivate Model
- SetArticleCommand -> ArticleFilter: updateFilter
+ Model --> FilterArticleCommand
+ FilterArticleCommand -> ArticleFilter: updateFilter
  activate ArticleFilter
- ArticleFilter --> SetArticleCommand
+ ArticleFilter --> FilterArticleCommand
  deactivate ArticleFilter
- SetArticleCommand -> Model:updateFilteredArticleList
- activate Model
+ FilterArticleCommand -> Model:updateFilteredArticleList
  deactivate Model
- [<-- SetArticleCommand
+ [<-- FilterArticleCommand
  deactivate
 @enduml
