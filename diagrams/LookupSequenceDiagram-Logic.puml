@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":LookupCommandParser" as LookupCommandParser LOGIC_COLOR
+participant "s:LookupCommand" as LookupCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute("lookup n/")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("lookup 1")
+activate AddressBookParser
+
+create LookupCommandParser
+AddressBookParser -> LookupCommandParser : LookupCommandParser()
+activate LookupCommandParser
+
+LookupCommandParser --> AddressBookParser
+deactivate LookupCommandParser
+
+AddressBookParser -> LookupCommandParser : parse("1")
+activate LookupCommandParser
+
+create LookupCommand
+LookupCommandParser -> LookupCommand : LookupCommand("1")
+activate LookupCommand
+
+LookupCommand --> LookupCommandParser
+deactivate LookupCommand
+
+LookupCommandParser --> AddressBookParser : s
+deactivate LookupCommandParser
+LookupCommandParser -[hidden]-> AddressBookParser : s
+destroy LookupCommandParser
+
+AddressBookParser --> LogicManager : s
+deactivate AddressBookParser
+
+LogicManager -> LookupCommand : execute()
+activate LookupCommand
+
+LookupCommand -> Model : lookupPerson(PersonAtIndex)
+activate Model
+
+Model --> LookupCommand
+deactivate Model
+
+LookupCommand --> LogicManager : commandResult
+deactivate LookupCommand
+LookupCommand -[hidden]-> LogicManager : commandResult
+destroy LookupCommand
+
+[<--LogicManager : commandResult
+deactivate LogicManager
+@enduml

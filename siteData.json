@@ -55,7 +55,7 @@
         "implementing-filter-feature": "[Implementing] Filter feature",
         "implemented-sort-articles-feature": "[Implemented] Sort articles feature",
         "proposed-undo-redo-feature": "[Proposed] Undo/redo feature",
-        "proposed-lookup-article": "[Proposed] Lookup Article",
+        "implemented-lookup-commands": "[Implemented] Lookup Commands",
         "proposed-templating-of-articles": "[Proposed] Templating of Articles",
         "proposed-data-archiving": "[Proposed] Data archiving",
         "implemented-link-webpage-to-articles": "[Implemented] Link Webpage to Articles",
@@ -69,6 +69,7 @@
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
         "launch-and-shutdown": "Launch and shutdown",
         "deleting-a-person": "Deleting a person",
+        "lookup-a-person-and-amp-article": "Lookup a person &amp; article",
         "filtering-through-articles": "Filtering through articles",
         "opening-links": "Opening Links",
         "saving-data": "Saving data",
@@ -164,7 +165,7 @@
       "src": "index.md",
       "title": "",
       "headings": {
-        "addressbook-level-3": "AddressBook Level-3"
+        "pressplanner": "PressPlanner"
       },
       "headingKeywords": {}
     },

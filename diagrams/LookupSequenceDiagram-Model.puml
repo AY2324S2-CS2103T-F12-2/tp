@@ -1,0 +1,32 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":ArticleWithinPersonPredicate" as ArticleWithinPersonPredicate MODEL_COLOR
+end box
+
+[-> Model : lookupPerson(PersonAtIndex)
+activate Model
+
+Model -> ModelManager : lookupPerson(PersonAtIndex)
+activate ModelManager
+
+create ArticleWithinPersonPredicate
+ModelManager -> ArticleWithinPersonPredicate : ArticleWithinPersonPredicate(PersonAtIndex)
+activate ArticleWithinPersonPredicate
+
+ArticleWithinPersonPredicate --> ModelManager : ArticleWithinPersonPredicate
+deactivate ArticleWithinPersonPredicate
+
+ModelManager -> ModelManager : updateFilteredArticleList(predicate)
+
+ModelManager --> Model :
+deactivate ModelManager
+
+[<-- Model :
+deactivate Model
+
+@enduml
