@@ -493,8 +493,6 @@ Format: `add -a h/HEADLINE  d/DATE s/STATUS [c/CONTRIBUTOR]... [i/INTERVIEWEE]..
     * e.g. `add -a h/My Article d/01-01-2024 s/draft d/02-02-2024` will add an article with the date `02-02-2024`.
 </div>
 
-<div style="page-break-after: always;"></div>
-
 * A `CONTRIBUTOR` is a co-author or information source that was not directly interviewed for an article.
 * An `INTERVIEWEE` is a person directly interviewed for an article.
   * If a `CONTRIBUTOR` or `INTERVIEWEE` has the same name as a contact in PressPlanner's address book, [`lookup`](#3-1-6-lookup-associated-articles-lookup) and [`lookup -a`](#3-2-8-lookup-associated-persons-lookup-a) commands can be used to find articles and persons associated with each other.
@@ -660,8 +658,6 @@ Examples:
   * (Bob who was the contributor for the second article is shown in the list of persons associated with the article
    
     ![After lookup](images/lookupArticle.png)
-
-<div style="page-break-after: always;"></div>
 
 ### [3.2.9. Sorting Articles by Date](#3-2-managing-articles) : `sort -a d/`
 
