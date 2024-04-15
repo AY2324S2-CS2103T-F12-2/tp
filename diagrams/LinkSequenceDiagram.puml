@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+{User} -> ArticleCard : Click
+Activate ArticleCard
+
+ArticleCard -> Model : getLink()
+Activate Model
+Model --> ArticleCard : return link
+deactivate Model
+
+ArticleCard -> ArticleCard : openBrowser(link)
+[<-- ArticleCard : open webpage
+deactivate ArticleCard
+@enduml

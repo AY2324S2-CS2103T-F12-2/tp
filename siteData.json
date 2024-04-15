@@ -58,7 +58,7 @@
         "proposed-lookup-article": "[Proposed] Lookup Article",
         "proposed-templating-of-articles": "[Proposed] Templating of Articles",
         "proposed-data-archiving": "[Proposed] Data archiving",
-        "proposed-link-webpage-to-articles": "[Proposed] Link Webpage to Articles",
+        "implemented-link-webpage-to-articles": "[Implemented] Link Webpage to Articles",
         "documentation-logging-testing-configuration-dev-ops": "Documentation, logging, testing, configuration, dev-ops",
         "appendix-requirements": "Appendix: Requirements",
         "product-scope": "Product scope",
@@ -70,6 +70,7 @@
         "launch-and-shutdown": "Launch and shutdown",
         "deleting-a-person": "Deleting a person",
         "filtering-through-articles": "Filtering through articles",
+        "opening-links": "Opening Links",
         "saving-data": "Saving data",
         "planned-enhancements": "Planned Enhancements"
       },
