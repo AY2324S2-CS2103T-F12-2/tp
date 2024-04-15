@@ -11,6 +11,7 @@ package "Parser Classes" as ParserClasses{
 Class XYZCommand
 Class ABCCommand
 CLass "{abstract}\nArticleCommand" as ArticleCommand
+Class "{abstract}\nPersonCommand" as PersonCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
 
@@ -34,23 +35,21 @@ LogicManager -right->"1" ParserClasses
 ParserClasses ..> XYZCommand : <<create>>
 ParserClasses ..> ABCCommand : <<create>>
 
-XYZCommand -up-|> Command
+XYZCommand -up-|> PersonCommand
 ABCCommand -up-|> ArticleCommand
+PersonCommand -up-|> Command
+ArticleCommand -up-|> Command
 LogicManager .left.> Command : <<call>>
-LogicManager .right.> ArticleCommand : <<call>>
 
 LogicManager --> Model
 LogicManager --> Storage
 Storage --[hidden] Model
 Command .[hidden]up.> Storage
-ArticleCommand .[hidden]left.> Storage
 Command .right.> Model
-ArticleCommand .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
-note left of ABCCommand: ABCCommand = AddArticleCommand, \nFindArticleCommand, etc
+note left of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note right of ABCCommand: ABCCommand = AddArticleCommand, \nFindArticleCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult
 Command .up.> CommandResult : <<create>>
-ArticleCommand .up.> CommandResult : <<create>>
 @enduml
