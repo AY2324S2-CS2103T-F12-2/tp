@@ -5,7 +5,7 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 
-Package Model as ModelPackage <<Rectangle>>{
+Package <size:30>Model</size> as ModelPackage <<Rectangle>>{
 Class "<<interface>>\nReadOnlyAddressBook" as ReadOnlyAddressBook
 Class "<<interface>>\nReadOnlyArticleBook" as ReadOnlyArticleBook
 Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
