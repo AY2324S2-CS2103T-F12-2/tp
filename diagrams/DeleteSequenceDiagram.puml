@@ -1,8 +1,9 @@
 @startuml
-!include style2.puml
+!include style.puml
 skinparam ArrowFontStyle plain
+scale 1.5
 
-box <size:30>Logic</size> LOGIC_COLOR_T1
+box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
@@ -10,14 +11,14 @@ participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
-box <size:30>Model</size> MODEL_COLOR_T1
+box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : <size:25>execute("delete 1")</size>
+[-> LogicManager : execute("delete 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : <size:25>parseCommand("delete 1")</size>
+LogicManager -> AddressBookParser : parseCommand("delete 1")
 activate AddressBookParser
 
 create DeleteCommandParser
@@ -27,7 +28,7 @@ activate DeleteCommandParser
 DeleteCommandParser --> AddressBookParser
 deactivate DeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : <size:25>parse("1")</size>
+AddressBookParser -> DeleteCommandParser : parse("1")
 activate DeleteCommandParser
 
 create DeleteCommand
@@ -37,19 +38,19 @@ activate DeleteCommand
 DeleteCommand --> DeleteCommandParser
 deactivate DeleteCommand
 
-DeleteCommandParser --> AddressBookParser : <size:25>d</size>
+DeleteCommandParser --> AddressBookParser : d
 deactivate DeleteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 DeleteCommandParser -[hidden]-> AddressBookParser
 destroy DeleteCommandParser
 
-AddressBookParser --> LogicManager : <size:25>d</size>
+AddressBookParser --> LogicManager : d
 deactivate AddressBookParser
 
-LogicManager -> DeleteCommand : <size:25>execute(m)</size>
+LogicManager -> DeleteCommand : execute(m)
 activate DeleteCommand
 
-DeleteCommand -> Model : <size:25>deletePerson(1)</size>
+DeleteCommand -> Model : deletePerson(1)
 activate Model
 
 Model --> DeleteCommand
@@ -62,7 +63,7 @@ activate CommandResult
 CommandResult --> DeleteCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : <size:25>r</size>
+DeleteCommand --> LogicManager : r
 deactivate DeleteCommand
 DeleteCommand -[hidden]-> DeleteCommandParser
 destroy DeleteCommand

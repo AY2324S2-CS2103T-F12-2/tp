@@ -1,9 +1,9 @@
 @startuml
-!include style3.puml
+!include style.puml
 skinparam ArrowFontStyle plain
+scale 2
 
-
-box <size:35>Logic</size> LOGIC_COLOR_T1
+box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":ArticleBookParser" as ArticleBookParser LOGIC_COLOR
@@ -11,60 +11,60 @@ participant ":SortArticleCommandParser" as SortArticleCommandParser LOGIC_COLOR
 participant "s:SortArticleCommand" as SortArticleCommand LOGIC_COLOR
 end box
 
-box <size:35>Model</size> MODEL_COLOR_T1
+box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
-[-> LogicManager : <size:30>execute("sort -a d/")</size>
+[-> LogicManager : execute("sort -a d/")
 activate LogicManager
 
-LogicManager -> AddressBookParser : <size:30>parseCommand("sort -a d/")</size>
+LogicManager -> AddressBookParser : parseCommand("sort -a d/")
 activate AddressBookParser
 
-AddressBookParser -> ArticleBookParser : <size:30>parseCommand("sort d/")</size>
+AddressBookParser -> ArticleBookParser : parseCommand("sort d/")
 activate ArticleBookParser
 
 create SortArticleCommandParser
-ArticleBookParser -> SortArticleCommandParser : <size:30>SortArticleCommandParser()</size>
+ArticleBookParser -> SortArticleCommandParser : SortArticleCommandParser()
 activate SortArticleCommandParser
 
 SortArticleCommandParser --> ArticleBookParser
 deactivate SortArticleCommandParser
 
-ArticleBookParser -> SortArticleCommandParser : <size:30>parse("d/")</size>
+ArticleBookParser -> SortArticleCommandParser : parse("d/")
 activate SortArticleCommandParser
 
 create SortArticleCommand
-SortArticleCommandParser -> SortArticleCommand : <size:30>SortArticleCommand("d/")</size>
+SortArticleCommandParser -> SortArticleCommand : SortArticleCommand("d/")
 activate SortArticleCommand
 
 SortArticleCommand --> SortArticleCommandParser
 deactivate SortArticleCommand
 
-SortArticleCommandParser --> ArticleBookParser : <size:30>s</size>
+SortArticleCommandParser --> ArticleBookParser : s
 deactivate SortArticleCommandParser
-SortArticleCommandParser -[hidden]-> AddressBookParser : <size:30>s</size>
+SortArticleCommandParser -[hidden]-> AddressBookParser : s
 destroy SortArticleCommandParser
 
-ArticleBookParser --> AddressBookParser : <size:30>s</size>
+ArticleBookParser --> AddressBookParser : s
 deactivate ArticleBookParser
 
-AddressBookParser --> LogicManager : <size:30>s</size>
+AddressBookParser --> LogicManager : s
 deactivate AddressBookParser
 
-LogicManager -> SortArticleCommand : <size:30>execute()</size>
+LogicManager -> SortArticleCommand : execute()
 activate SortArticleCommand
 
-SortArticleCommand -> Model : <size:30>sortArticleBook("d/")</size>
+SortArticleCommand -> Model : sortArticleBook("d/")
 activate Model
 
 Model --> SortArticleCommand
 deactivate Model
 
-SortArticleCommand --> LogicManager : <size:30>commandResult</size>
+SortArticleCommand --> LogicManager : commandResult
 deactivate SortArticleCommand
-SortArticleCommand -[hidden]-> LogicManager : <size:30>commandResult</size>
+SortArticleCommand -[hidden]-> LogicManager : commandResult
 destroy SortArticleCommand
 
-[<--LogicManager : <size:30>commandResult</size>
+[<--LogicManager : commandResult
 deactivate LogicManager
 @enduml
