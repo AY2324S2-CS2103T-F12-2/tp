@@ -6,9 +6,11 @@ skinparam classBackgroundColor MODEL_COLOR
 
 Package Model as ModelPackage <<Rectangle>>{
 Class "<<interface>>\nReadOnlyAddressBook" as ReadOnlyAddressBook
+Class "<<interface>>\nReadOnlyArticleBook" as ReadOnlyArticleBook
 Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
 Class "<<interface>>\nModel" as Model
 Class AddressBook
+Class ArticleBook
 Class ModelManager
 Class UserPrefs
 
@@ -19,36 +21,60 @@ Class Email
 Class Name
 Class Phone
 Class Tag
-
 Class I #FFFFFF
+
+Class UniqueArticleList
+Class Article
+Class Author
+Class Link
+Class Outlet
+Class PublicationDate
+Class Source
+Class Title
+Class K #FFFFFF
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
 AddressBook .up.|> ReadOnlyAddressBook
+ArticleBook .up.|> ReadOnlyArticleBook
 
 ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
 Model .left.> ReadOnlyAddressBook
+Model .left.> ReadOnlyArticleBook
 ModelManager -left-> "1" AddressBook
+ModelManager -right-> "1" ArticleBook
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
+ArticleBook *--> "1" UniqueArticleList
 UniquePersonList --> "~* all" Person
+UniqueArticleList --> "~* all" Article
 Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
+Article *--> "*" Author
+Article *--> Link
+Article *--> "*" Outlet
+Article *--> PublicationDate
+Article *--> "*" Source
+Article *--> Title
+Article *--> "*" Tag
 
 Person -[hidden]up--> I
+Article -[hidden]up--> K
 UniquePersonList -[hidden]right-> I
+UniqueArticleList -[hidden]right-> K
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager --> "~* filtered" Person
+ModelManager --> "~* filtered" Article
 @enduml
