@@ -36,6 +36,6 @@ XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
-AddressBookParser ..> ArticleBookParser : <<includes>>
+AddressBookParser ..> ArticleBookParser
 ArticleBookParser ..> XYZCommandParser : <<create>>
 @enduml
