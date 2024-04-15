@@ -467,8 +467,6 @@ Here are some important terms that will be used in this section:
    * The `STATUS` parameter is not case-sensitive (e.g. `draft` and `DRAFT` are both valid inputs).
 </div>
 
-<div style="page-break-after: always;"></div>
-
 ### [3.2.1. Adding an Article](#3-2-managing-articles) : `add -a`
 Adds a new article to PressPlanner's database.
 
@@ -546,6 +544,8 @@ Format: `edit -a INDEX [h/HEADLINE] [d/DATE] [s/STATUS] [c/CONTRIBUTOR]... [i/IN
 * **At least one** of the optional fields must be provided.
 * Refer to the [`add -a` command](#3-2-1-adding-an-article-add-a) for the format of each field.
   * Note that `edit -a` will also behave the same as `add -a` in terms of returning to the full list of articles if used after a `find` command.
+
+<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-warning">
 
@@ -687,8 +687,6 @@ Example:
 
 * Success message shown:
   * `sorted all articles by date`
-
-<div style="page-break-after: always;"></div>
 
 ### [3.2.10. Opening a Webpage for an Article](#3-2-managing-articles)
 
